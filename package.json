@@ -34,6 +34,7 @@
   },
   "homepage": "https://github.com/aztecrex/firefighter#readme",
   "dependencies": {
+    "aws-sdk": "^2.149.0",
     "browserify": "^14.5.0",
     "pulp": "^12.0.1",
     "purescript": "^0.11.6",
