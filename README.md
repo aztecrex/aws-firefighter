@@ -4,6 +4,12 @@ You're a firefighter. You need to get into the infrastructure
 but all the access is blocked. This software can help.
 
 
+## Status
+
+No real code yet. But it does deploy to AWS Lambda and it does
+handle requests. You can use this as a starting point for your
+own Purescript Lambda Functions.
+
 Bare bones build and deployment so far.
 
 ## Prerequeisites
@@ -16,8 +22,8 @@ Bare bones build and deployment so far.
 
 ## Configure
 
-From the source directory, `./configure`. This will install the npm
-and purescript libraries.
+From the source directory, `./configure`. This will install the JS
+and Purescript libraries.
 
 ## Buid and Package
 
@@ -29,6 +35,4 @@ From the source directory, `./package`. This will create a file called
 Create a `deploy.env` environment file using `deploy.env.sample` for
 guidance. From the source directory `./deploy`. If you have already
 deployed, use `./update` instead.
-
-
 
