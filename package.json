@@ -4,7 +4,9 @@
   "description": "Temporary elevated permissions in AWS",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "configure": "npm install --silent && psc-package update",
+    "test": "pulp run",
+    "compile": "pulp build"
   },
   "repository": {
     "type": "git",
@@ -26,6 +28,7 @@
   },
   "homepage": "https://github.com/aztecrex/firefighter#readme",
   "dependencies": {
+    "pulp": "^12.0.1",
     "purescript": "^0.11.6"
   }
 }
