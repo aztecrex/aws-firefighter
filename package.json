@@ -24,5 +24,8 @@
   "bugs": {
     "url": "https://github.com/aztecrex/firefighter/issues"
   },
-  "homepage": "https://github.com/aztecrex/firefighter#readme"
+  "homepage": "https://github.com/aztecrex/firefighter#readme",
+  "dependencies": {
+    "purescript": "^0.11.6"
+  }
 }
