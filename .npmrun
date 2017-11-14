@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+where=$(dirname $0)
+what=$(basename $0)
+
+cd "$where"
+npm run "$what"
+
