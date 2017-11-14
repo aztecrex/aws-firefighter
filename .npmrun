@@ -4,5 +4,9 @@ where=$(dirname $0)
 what=$(basename $0)
 
 cd "$where"
+if [ -f "${what}.env" ]; then
+    source "${what}.env"
+fi
+
 npm run "$what"
 
