@@ -1,0 +1,28 @@
+{
+  "name": "firefighter",
+  "version": "1.0.0",
+  "description": "Temporary elevated permissions in AWS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aztecrex/firefighter.git"
+  },
+  "keywords": [
+    "aws",
+    "firefighting",
+    "firefighter",
+    "elevated",
+    "access",
+    "control",
+    "dual"
+  ],
+  "author": "Greg Wiley <aztex.rex@jammm.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aztecrex/firefighter/issues"
+  },
+  "homepage": "https://github.com/aztecrex/firefighter#readme"
+}
