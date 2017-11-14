@@ -12,11 +12,18 @@ own Purescript Lambda Functions.
 
 Bare bones build and deployment so far.
 
-## Prerequeisites
+## Prerequisites
 
+### Build
 - node (and npm)
 - psc-package
+
+### Package
+
 - zip
+
+### Deploy
+
 - aws cli
 - aws cli credentials set up on your computer
 
@@ -29,6 +36,9 @@ and Purescript libraries.
 
 From the source directory, `./package`. This will create a file called
 `./output/firefighter.zip`.
+
+If you just want to build the JS, `./build`. This will create a file
+called `./output/firefighter.js`.
 
 ## Deploy
 
