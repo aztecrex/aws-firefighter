@@ -6,7 +6,11 @@
   "scripts": {
     "configure": "npm install --silent && psc-package update",
     "test": "pulp run",
-    "compile": "pulp build"
+    "compile": "pulp build",
+    "_combine": "> output/_combine.js                      browserify ./src/entrypoint.js -s entrypoint",
+    "_compact": "> output/_compact.js < output/_combine.js uglifyjs - -c -m",
+    "_package": "cd output && cp _compact.js firefight.js && zip firefight firefight.js",
+    "build": "npm run compile && npm run _combine && npm run _compact && npm run _package"
   },
   "repository": {
     "type": "git",
