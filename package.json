@@ -4,6 +4,8 @@
   "description": "Temporary elevated permissions in AWS",
   "main": "index.js",
   "scripts": {
+    "clean": "rm -rf output",
+    "superclean": "git clean -xdff",
     "configure": "npm install --silent && psc-package update",
     "test": "pulp run",
     "compile": "pulp build",
