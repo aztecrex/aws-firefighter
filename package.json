@@ -9,8 +9,11 @@
     "configure": "npm install --silent && psc-package update",
     "test": "pulp run",
     "compile": "pulp build",
-    "build": "npm run compile && browserify ./src/entrypoint.js -s entrypoint | uglifyjs - -c -m > output/firefighter.js",
-    "package": "npm run build && cd output && rm -f firefight.zip && zip firefighter firefighter.js",
+    "_pack": "browserify ./src/entrypoint.js -x aws-sdk -s entrypoint > output/firefighter.js",
+    "_packmin": "browserify ./src/entrypoint.js -x aws-sdk -s entrypoint | uglifyjs - -c -m > output/firefighter.js",
+    "_zip": "cd output; rm -f firefighter.zip; zip firefighter firefighter.js; cd ..",
+    "build": "npm run compile && npm run _pack",
+    "package": "npm run compile && npm run _packmin && npm run _zip",
     "deploy": "aws lambda create-function --function-name firefighter --runtime nodejs6.10 --role ${FUNCTION_ROLE} --handler firefighter.handler --zip-file fileb://output/firefighter.zip",
     "update": "aws lambda update-function-code --function-name firefighter --zip-file fileb://output/firefighter.zip"
   },
@@ -34,6 +37,7 @@
   },
   "homepage": "https://github.com/aztecrex/firefighter#readme",
   "dependencies": {
+    "aws-sdk": "^2.149.0",
     "browserify": "^14.5.0",
     "pulp": "^12.0.1",
     "purescript": "^0.11.6",
