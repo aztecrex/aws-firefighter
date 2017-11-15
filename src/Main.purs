@@ -1,5 +1,5 @@
 module Main where
 
-import Handler (somethingInAWS)
+import Handler (runHandler)
 
-main = somethingInAWS
+main = runHandler

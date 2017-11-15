@@ -6,9 +6,7 @@ but all the access is blocked. This software can help.
 
 ## Status
 
-No real code yet. But it does deploy to AWS Lambda and it does
-handle requests. You can use this as a starting point for your
-own Purescript Lambda Functions.
+Lambda function can assume STS firefighter role.
 
 Bare bones build and deployment so far.
 
@@ -34,6 +32,15 @@ and Purescript libraries.
 
 ## Buid and Package
 
+Create file, `secrets.js` using `secrets.js.sample` to guide you. You
+will need the ARN of the firefighting role (the role you want to assume
+when you fight fires). That role must have a trust policy that allows
+it to be assumed from the `firefighter` AWS Lambda Function's service
+role (see deployment).
+
+Once this project takes more shape, I will provide some provisioning
+scripts for the roles you'll need.
+
 From the source directory, `./package`. This will create a file called
 `./output/firefighter.zip`.
 
@@ -43,6 +50,9 @@ called `./output/firefighter.js`.
 ## Deploy
 
 Create a `deploy.env` environment file using `deploy.env.sample` for
-guidance. From the source directory `./deploy`. If you have already
-deployed, use `./update` instead.
+guidance. You will need the ARN of a role that has permission to assume
+the firefighting role. Use resource '*' or you will have a circular
+dependency (you can add conditions if that bothers you). From the
+source directory `./deploy`. If you have already deployed, use `./update`
+instead.
 
