@@ -12,19 +12,29 @@ const STS = new AWS.STS();
 
 // const S3 = new AWS.S3();
 
+exports._fakeInput = {};
+exports._fakeContext = {};
 
+exports._stringify = function (o) { return JSON.stringify(o, null, 1); };
 
+exports._firefighterRole = secrets.firefighterRole;
 
-const somethingInAWS = function() {
-    console.log ("doing something");
-    STS.assumeRole({
-        RoleArn: secrets.firefighterRole,
-        RoleSessionName: "FirefighterToTheRescue"
-    }, function (err, data) {
-        if (err) console.log(err, err.stack);
-        else console.log(data);
-    });
-    return {};
-}
-
-exports.somethingInAWS = somethingInAWS;
+exports._assumeRole = function (role) {
+    return function (session) {
+        const params = {
+            RoleArn: role,
+            RoleSessionName: session
+        };
+        return function (errh) {
+            return function(succh) {
+                return function() {
+                    STS.assumeRole(params, function(err, data) {
+                        if (err) errh(err)();
+                        else succh(data)();
+                    });
+                    return {};
+                }
+            };
+        };
+    };
+};
