@@ -1,0 +1,15 @@
+{
+ "ResponseMetadata": {
+  "RequestId": "922151b5-ca24-11e7-8d0a-2bb70f4ef573"
+ },
+ "Credentials": {
+  "AccessKeyId": "ASIAJU4FKIOIWX5XEYTA",
+  "SecretAccessKey": "Lx0JPyLphiu3KMoPRrXxxuNK3Hvs3XYUiytjRS68",
+  "SessionToken": "FQoDYXdzEGIaDDBhYUCWyVakYqXvfCL4AUl4dvf6n2MwYuxb5uANhKRAMNWMjQz18N6aOrzzVPcuY4crkq9hU7ONbFgAWauHDQDIbp9knK9OTozc6VdVOHENobatTrop6uTpXXGvxiCvBq2LO5qQkb49fbcY9CDrsTVL5AU+DfVHvmkqDIZLz47Z16tFR2y3O7oPmaOSdW75cthAwn8mD7Pb9NgybOLl9iDbV09cAgZtnDh/ljrFnXYEbqu4kFu1iW+NkXJqnS2o7wEaJwxwAn1dV9YnEDPinx9bx9JA+dMwY/EO801B56aPupIYi8BXTs2o+1CD4EFYVBZ9HHdp5n57BvBuXkoGFnJAUVrwUXG5KPfesdAF",
+  "Expiration": "2017-11-15T17:46:47.000Z"
+ },
+ "AssumedRoleUser": {
+  "AssumedRoleId": "AROAISVJRV2L4ELZWZLK2:fight-fire-with-fire",
+  "Arn": "arn:aws:sts::299766559344:assumed-role/FirefighterPermissionsRole/fight-fire-with-fire"
+ }
+}
