@@ -3,3 +3,4 @@ node_modules
 .pulp-cache
 output
 *.env
+secrets.js
