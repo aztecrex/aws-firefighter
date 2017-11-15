@@ -16,7 +16,7 @@
     "package": "npm run compile && npm run _packmin && npm run _zip",
     "deploy": "aws lambda create-function --function-name firefighter --runtime nodejs6.10 --role ${FUNCTION_ROLE} --handler firefighter.handler --zip-file fileb://output/firefighter.zip",
     "update": "aws lambda update-function-code --function-name firefighter --zip-file fileb://output/firefighter.zip",
-    "verify": "node -e 'require(\"./output/firefighter\").handler()'"
+    "verify": "node -e 'require(\"./output/firefighter\").handler({},{},function(err,data){console.log(data);})'"
   },
   "repository": {
     "type": "git",

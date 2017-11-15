@@ -1,6 +1,6 @@
 module Handler (handler, Context, Input, runHandler, AWS) where
 
-import Prelude(Unit, unit, pure, discard, ($), bind, class Show, void)
+import Prelude(Unit, unit, pure, discard, ($), bind, class Show, void, show)
 import Control.Monad.Eff(Eff, kind Effect)
 import Control.Monad.Eff.Exception(EXCEPTION, Error)
 import Control.Monad.Aff(Aff, makeAff, launchAff, liftEff')
@@ -36,11 +36,13 @@ assumeRole role session = makeAff $ _assumeRole role session
 handler :: forall eff.
      Input
   -> Context
-  -> Eff (exception :: EXCEPTION, aws :: AWS, console :: CONSOLE) Unit
-handler _ ctx = void $ launchAff $ do
+  -> (String -> Eff (exception :: EXCEPTION, aws :: AWS, console :: CONSOLE | eff) Unit)
+  -> Eff (exception :: EXCEPTION, aws :: AWS, console :: CONSOLE | eff) Unit
+handler _ ctx cb = void $ launchAff $ do
   assumed <- assumeRole _firefighterRole "fight-fire-with-fire"
-  void $ liftEff' $ logShow assumed
+  void $ liftEff' $ cb (show assumed)
+  -- void $ liftEff' $ logShow assumed
   void $ liftEff' $ log "everything is handled"
   pure unit
 
-runHandler = handler _fakeInput _fakeContext
+runHandler = handler _fakeInput _fakeContext log
