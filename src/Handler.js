@@ -3,14 +3,8 @@
 const secrets = require('../../secrets').secrets;
 
 const AWS = require("aws-sdk");
-// const credentials = new AWS.SharedIniFileCredentials();
-// AWS.config.credentials = credentials;
-// const creds = new AWS.SharedIniFileCredentials({profile: 'default'});
-// AWS.config.credentials = creds;
 
 const STS = new AWS.STS();
-
-// const S3 = new AWS.S3();
 
 exports._fakeInput = {};
 exports._fakeContext = {};

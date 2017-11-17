@@ -41,7 +41,6 @@ handler :: forall eff.
 handler _ ctx cb = void $ launchAff $ do
   assumed <- assumeRole _firefighterRole "fight-fire-with-fire"
   void $ liftEff' $ cb assumed
-  -- void $ liftEff' $ logShow assumed
   void $ liftEff' $ log "everything is handled"
   pure unit
 
