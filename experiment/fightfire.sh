@@ -2,17 +2,12 @@
 
 responsef=$(mktemp)
 
-aws lambda invoke --function-name firefighter "$responsef" > /dev/null
+aws --profile greg lambda invoke --function-name firefighter "$responsef" > /dev/null
 
-cat "$responsef"
-
-estr=$(< "$responsef" jp 'Credentials | [join(`"="`, [`"AWS_ACCESS_KEY"`,AccessKeyId]),join(`"="`, [`"AWS_SECRET_ACCESS_KEY"`,SecretAccessKey]),join(`"="`, [`"AWS_SESSION_TOKEN"`,SessionToken])] | join(`"\n"`, @)')
-
+estr=$(< "$responsef" jp -u 'Credentials | [join(`"="`, [`"AWS_ACCESS_KEY_ID"`,AccessKeyId]),join(`"="`, [`"AWS_SECRET_ACCESS_KEY"`,SecretAccessKey]),join(`"="`, [`"AWS_SESSION_TOKEN"`,SessionToken])] | join(`" "`, @)')
 rm -f "$responsef"
 
-echo "$estr"
-
-# estr=$(< "$responsef" jp 'Credentials | [join(`"="`, [`"AWS_ACCESS_KEY"`,AccessKeyId]),join(`"="`, [`"AWS_SECRET_ACCESS_KEY"`,SecretAccessKey]),join(`"="`, [`"AWS_SESSION_TOKEN"`,SessionToken])] | join(`"\n"`, @)')
+env -S "$estr" aws "${@}"
 
 # env -S $(< "$responsef" jp 'Credentials | [join(`"="`, [`"AWS_ACCESS_KEY"`,AccessKeyId]),join(`"="`, [`"AWS_SECRET_ACCESS_KEY"`,SecretAccessKey]),join(`"="`, [`"AWS_SESSION_TOKEN"`,SessionToken])] | join(`"\n"`, @)')
 
