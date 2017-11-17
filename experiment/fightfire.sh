@@ -11,8 +11,3 @@ estr=$(< "$responsef" jp -u 'Credentials | [join(`"="`, [`"AWS_ACCESS_KEY_ID"`,A
 rm -f "$responsef"
 
 env -S "$estr" aws "${@}"
-
-# env -S $(< "$responsef" jp 'Credentials | [join(`"="`, [`"AWS_ACCESS_KEY"`,AccessKeyId]),join(`"="`, [`"AWS_SECRET_ACCESS_KEY"`,SecretAccessKey]),join(`"="`, [`"AWS_SESSION_TOKEN"`,SessionToken])] | join(`"\n"`, @)')
-
-
-
