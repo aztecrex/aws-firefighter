@@ -2,7 +2,10 @@
 
 responsef=$(mktemp)
 
-aws --profile greg lambda invoke --function-name firefighter "$responsef" > /dev/null
+prof="$1"
+shift
+
+aws --profile "$prof" lambda invoke --function-name firefighter "$responsef" > /dev/null
 
 estr=$(< "$responsef" jp -u 'Credentials | [join(`"="`, [`"AWS_ACCESS_KEY_ID"`,AccessKeyId]),join(`"="`, [`"AWS_SECRET_ACCESS_KEY"`,SecretAccessKey]),join(`"="`, [`"AWS_SESSION_TOKEN"`,SessionToken])] | join(`" "`, @)')
 rm -f "$responsef"
