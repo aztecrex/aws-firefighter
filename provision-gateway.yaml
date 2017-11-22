@@ -1,10 +1,5 @@
 AWSTemplateFormatVersion: '2010-09-09'
-Parameters:
-  FirefighterRoleARN:
-    Type: String
-    Description: >
-      The role that will be assumed for firefighting (temporary requirement until discovery is implemented)
-    MinLength: 1
+Parameters: {}
 
 Resources:
 
