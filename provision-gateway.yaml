@@ -106,5 +106,7 @@ Resources:
       StageName: "WhyIsThisStageNeeded"
 
 Outputs:
-  FightFire:
-    Value: !Ref FirefighterEndpoint
+  FightFireUrl:
+    Value: !Sub https://${API}.execute-api.${AWS::Region}.amazonaws.com/WhyIsThisStageNeeded/fightfire
+  FunctionName:
+    Value: !Ref Responder
