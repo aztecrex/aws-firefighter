@@ -103,6 +103,13 @@ Resources:
       Principal: apigateway.amazonaws.com
       SourceArn: !Sub arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${API}/*/GET/fightfire
 
+  DeployAPI:
+    DependsOn: GetCredentials
+    Type: "AWS::ApiGateway::Deployment"
+    Properties:
+      RestApiId: !Ref API
+      StageName: "WhyIsThisStageNeeded"
+
 Outputs:
   FightFire:
     Value: !Ref FirefighterEndpoint
