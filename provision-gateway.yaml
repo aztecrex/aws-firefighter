@@ -110,3 +110,6 @@ Outputs:
     Value: !Sub https://${API}.execute-api.${AWS::Region}.amazonaws.com/WhyIsThisStageNeeded/fightfire
   FunctionName:
     Value: !Ref Responder
+  ResponderRoleArn:
+    Value: !GetAtt ResponderRole.Arn
+
