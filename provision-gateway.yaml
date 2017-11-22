@@ -1,0 +1,115 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Parameters: {}
+
+Resources:
+
+  ResponderRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - lambda.amazonaws.com
+            Action: sts:AssumeRole
+
+  AssumeRolePolicy:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: assumeAnyRolePolicy
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Action: sts:AssumeRole
+            Resource: "*"
+      Roles:
+        - Ref: ResponderRole
+
+  LogPolicy:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: logAnyPolicy
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Action:
+              - sts:AssumeRole
+              - logs:CreateLogGroup
+              - logs:CreateLogStream
+              - logs:PutLogEvents
+              - logs:DescribeLogStreams
+            Resource: "*"
+      Roles:
+        - Ref: ResponderRole
+
+  Responder:
+    Type: AWS::Lambda::Function
+    Properties:
+      Description: Fight Fire
+      Code:
+        ZipFile: >
+          exports.handler = function (event, context, callback) {
+              console.log("I am Alive!");
+              callback(null, {success: true, youruncle: "Bob"});
+          };
+      Handler: index.handler
+      MemorySize: 128
+      Role: !GetAtt ResponderRole.Arn
+      Runtime: nodejs6.10
+      Timeout: 3
+
+  API:
+    Type: AWS::ApiGateway::RestApi
+    Properties:
+      Name: firefighter
+
+  FirefighterEndpoint:
+    Type: AWS::ApiGateway::Resource
+    Properties:
+      ParentId: !GetAtt API.RootResourceId
+      PathPart: fightfire
+      RestApiId: !Ref API
+
+  GetCredentials:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      AuthorizationType: NONE
+      HttpMethod: GET
+      MethodResponses:
+        - StatusCode: 200
+      Integration:
+        Type: AWS
+        IntegrationHttpMethod: POST
+        IntegrationResponses:
+          - StatusCode: 200
+        Uri: !Sub arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${Responder.Arn}/invocations
+      ResourceId: !Ref FirefighterEndpoint
+      RestApiId: !Ref API
+
+  ResponderInvocationPermission:
+    Type: "AWS::Lambda::Permission"
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName: !GetAtt Responder.Arn
+      Principal: apigateway.amazonaws.com
+      SourceArn: !Sub arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${API}/*/GET/fightfire
+
+  DeployAPI:
+    DependsOn: GetCredentials
+    Type: "AWS::ApiGateway::Deployment"
+    Properties:
+      RestApiId: !Ref API
+      StageName: "WhyIsThisStageNeeded"
+
+Outputs:
+  FightFireUrl:
+    Value: !Sub https://${API}.execute-api.${AWS::Region}.amazonaws.com/WhyIsThisStageNeeded/fightfire
+  FunctionName:
+    Value: !Ref Responder
+  ResponderRoleArn:
+    Value: !GetAtt ResponderRole.Arn
+
