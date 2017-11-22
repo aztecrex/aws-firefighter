@@ -10,13 +10,13 @@
     "test": "pulp run",
     "compile": "pulp build",
     "_pack": "browserify ./src/entrypoint.js -x aws-sdk -s entrypoint > output/firefighter.js",
-    "_packmin": "browserify ./src/entrypoint.js -x aws-sdk -s entrypoint | uglifyjs - -c -m > output/firefighter.js",
-    "_zip": "cd output; rm -f firefighter.zip; zip firefighter firefighter.js; cd ..",
+    "_packmin": "browserify ./src/entrypoint.js -x aws-sdk -s entrypoint | uglifyjs - -c -m > output/index.js",
+    "_zip": "cd output; rm -f firefighter.zip; zip firefighter index.js; cd ..",
     "build": "npm run compile && npm run _pack",
     "package": "npm run compile && npm run _packmin && npm run _zip",
-    "deploy": "aws lambda create-function --function-name firefighter --runtime nodejs6.10 --role ${FUNCTION_ROLE} --handler firefighter.handler --zip-file fileb://output/firefighter.zip",
+    "deploy": "aws lambda create-function --function-name firefighter --runtime nodejs6.10 --role ${FUNCTION_ROLE} --handler index.handler --zip-file fileb://output/firefighter.zip",
     "update": "aws lambda update-function-code --function-name firefighter --zip-file fileb://output/firefighter.zip",
-    "verify": "node -e 'require(\"./output/firefighter\").handler({},{},function(err,data){console.log(data);})'"
+    "verify": "node -e 'require(\"./output/index\").handler({},{},function(err,data){console.log(data);})'"
   },
   "repository": {
     "type": "git",
