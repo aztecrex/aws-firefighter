@@ -103,7 +103,7 @@ Resources:
     Type: "AWS::ApiGateway::Deployment"
     Properties:
       RestApiId: !Ref API
-      StageName: "WhyIsThisStageNeeded"
+      StageName: "smoke"
 
 Outputs:
   FightFireUrl:
