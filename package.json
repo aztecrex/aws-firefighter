@@ -14,8 +14,6 @@
     "_zip": "cd output; rm -f firefighter.zip; zip firefighter index.js; cd ..",
     "build": "npm run compile && npm run _pack",
     "package": "npm run compile && npm run _packmin && npm run _zip",
-    "deploy": "aws lambda create-function --function-name firefighter --runtime nodejs6.10 --role ${FUNCTION_ROLE} --handler index.handler --zip-file fileb://output/firefighter.zip",
-    "update": "aws lambda update-function-code --function-name firefighter --zip-file fileb://output/firefighter.zip",
     "verify": "node -e 'require(\"./output/index\").handler({},{},function(err,data){console.log(data);})'"
   },
   "repository": {
