@@ -17,7 +17,7 @@ if [ -z "$FIREFIGHTER_VENDOR" ]; then
 fi
 
 
-estr="$(    curl "${FIREFIGHTER_VENDOR}" \
+estr="$(    curl -s "${FIREFIGHTER_VENDOR}" \
         | jp -u 'Credentials | [join(`"="`, [`"AWS_ACCESS_KEY_ID"`,AccessKeyId]),join(`"="`, [`"AWS_SECRET_ACCESS_KEY"`,SecretAccessKey]),join(`"="`, [`"AWS_SESSION_TOKEN"`,SessionToken])] | join(`" "`, @)' \
     )"
 
