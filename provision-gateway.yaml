@@ -1,6 +1,11 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Parameters: {}
 
+Mappings:
+  Deployment:
+    Smoke:
+      stageName: smoke
+
 Resources:
 
   ResponderRole:
@@ -98,16 +103,25 @@ Resources:
       Principal: apigateway.amazonaws.com
       SourceArn: !Sub arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${API}/*/GET/fightfire
 
-  DeployAPI:
-    DependsOn: GetCredentials
+  SmokeDeploy:
     Type: "AWS::ApiGateway::Deployment"
+    DependsOn:
+      - GetCredentials
     Properties:
       RestApiId: !Ref API
-      StageName: "WhyIsThisStageNeeded"
+
+  SmokeStage:
+    Type: "AWS::ApiGateway::Stage"
+    Properties:
+      DeploymentId: !Ref SmokeDeploy
+      RestApiId: !Ref API
+      StageName: !FindInMap [Deployment, Smoke, stageName]
 
 Outputs:
   FightFireUrl:
-    Value: !Sub https://${API}.execute-api.${AWS::Region}.amazonaws.com/WhyIsThisStageNeeded/fightfire
+    Value: !Sub
+      - https://${API}.execute-api.${AWS::Region}.amazonaws.com/${StageName}/fightfire
+      - StageName: !FindInMap [Deployment, Smoke, stageName]
   FunctionName:
     Value: !Ref Responder
   ResponderRoleArn:
