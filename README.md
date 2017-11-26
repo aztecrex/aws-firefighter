@@ -7,9 +7,17 @@ in.
 
 ## Status
 
-Lambda function can assume STS firefighter role.
+- Lambda Function vends credentals from STS assume-role
+- API Gateway fronts the Lambda Function
+- provisioning via CloudFormation
+- bare-bones deployment
 
-Bare bones build and deployment so far.
+## Up Next
+
+- get serious about packaging this for consumption
+    - design the CD for this case, allowing people to hook into it via their own AWS accounts
+    - figure out how best to distribute end-user tools
+- develop a proper end-user CLI tool
 
 ## Prerequisites
 
