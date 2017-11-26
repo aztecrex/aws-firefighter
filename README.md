@@ -1,7 +1,8 @@
 # Firefighter
 
 You're a firefighter. You need to get into the infrastructure
-but all the access is blocked. This software can help.
+but all the access is blocked. This software will get you
+in.
 
 
 ## Status
@@ -24,6 +25,10 @@ Bare bones build and deployment so far.
 
 - aws cli
 - aws cli credentials set up on your computer
+
+### Try It Out
+
+- JMESPath processor `jp` installed on your computer
 
 ## Configure
 
@@ -49,10 +54,36 @@ called `./output/firefighter.js`.
 
 ## Deploy
 
-Create a `deploy.env` environment file using `deploy.env.sample` for
-guidance. You will need the ARN of a role that has permission to assume
-the firefighting role. Use resource '*' or you will have a circular
-dependency (you can add conditions if that bothers you). From the
-source directory `./deploy`. If you have already deployed, use `./update`
-instead.
+Deployment is still a bit in the air because I haven't yet decied how
+to publish this software in a continuous delivery. The trouble is that
+I want to continuously deploy to my own AWS accounts but that probably
+won't help you. I'll figure it out, just give me a little time.
+
+For now, use the CloudFormation template, `provision.yaml` which will
+set up the AWS Lambda Function and API Gateway. The stack output
+will contain the firefighting credential vendor URL.
+
+The output will also contain the Lambda function name. Update the
+Lambda Function code after you deploy the CloudFormation stack, using
+`aws lambda update-function-code --function-name <lambda-fn-name> --zip-file fileb://output/firefighter.zip`
+where you replace `<lambda-fn-name>` with the name of the function in
+your stack.
+
+This will get better as soon as I figure out how I want to deploy
+this--the very next thing on my backlog.
+
+## Try It Out
+
+I added a simple AWS CLI replacement called `fightfire.sh` in the
+`experiment` directory. It is a simple UI for testing out this
+code while it is under development.
+
+Create a file, `experiment/fightfire.env`, using 
+`experiment/fightfire.env.sample` as a template. Use the vendor
+URL from your stack output in your own `.env` file.
+
+Run `experiment/fightfire.sh` like you would normally run
+`aws`, with a subcommand and arguments. If your firefighter
+role has permission to perform the request, it will be performed.
+Otherwise, you will see an access-denied message.
 
